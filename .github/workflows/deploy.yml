@@ -13,6 +13,8 @@ jobs:
       - name: build
         run: yarn install
       - name: test
+        env:
+          SQLITE_DB_LOCATION: /tmp/todos/todo.db
         run: yarn test
 
       - name: Show current date
