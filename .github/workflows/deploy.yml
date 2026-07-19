@@ -4,14 +4,18 @@ on:
   push:
     branches:
       - main
+  schedule:
+    - cron: '0 */4 * * *'
 
 jobs:
   greet:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: build
         run: yarn install
+
       - name: test
         env:
           SQLITE_DB_LOCATION: /tmp/todos/todo.db
@@ -19,3 +23,16 @@ jobs:
 
       - name: Show current date
         run: date
+
+      - name: Log run date to file
+        run: |
+          mkdir -p logs
+          echo "Workflow ran at: $(date -u)" >> logs/run-log.txt
+
+      - name: Commit and push log file
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add logs/run-log.txt
+          git diff --quiet && git diff --staged --quiet || git commit -m "Log run: $(date -u)"
+          git push
