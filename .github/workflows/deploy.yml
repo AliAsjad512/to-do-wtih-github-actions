@@ -9,8 +9,10 @@ jobs:
   greet:
     runs-on: ubuntu-latest
     steps:
-      - name: Say Hello
-        run: echo "Hello from CodeFlow CI!"
+      - name: build
+        run: yarn install
+      - name: test
+        run: yarn test
 
       - name: Show current date
         run: date
