@@ -5,7 +5,8 @@ on:
     branches:
       - main
   schedule:
-    - cron: '0 */4 * * *'
+permissions:
+  contents: write    - cron: '0 */4 * * *'
 
 jobs:
   greet:
