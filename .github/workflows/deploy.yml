@@ -4,9 +4,10 @@ on:
   push:
     branches:
       - main
-  schedule:
-  permissions:
-    contents: write    - cron: '0 */4 * * *'
+    schedule:
+      - cron: '0 */4 * * *'
+permissions:
+  contents: write    '
 
 jobs:
   greet:
