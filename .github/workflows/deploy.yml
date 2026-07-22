@@ -10,6 +10,8 @@ on:
 jobs:
   greet:
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: postgres://test-db:5432/codeflow_test
     steps:
       - uses: actions/checkout@v4
 
