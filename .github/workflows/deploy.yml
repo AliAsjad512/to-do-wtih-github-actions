@@ -39,9 +39,13 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add logs/run-log.txt
+          git config merge.union.driver true
+          git config merge.union.name "union merge driver"
+          git config merge.union.driver "git merge-file -A %A %O %B"
+          echo "logs/run-log.txt merge=union" >> .gitattributes
+          git add logs/run-log.txt .gitattributes
           git diff --quiet && git diff --staged --quiet || git commit -m "Log run"
-          git pull --rebase origin main
+          git pull --rebase -X ours origin main
           git push
 
       - name: Set up Docker Buildx
